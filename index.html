@@ -4,497 +4,588 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chaine D'alerte</title>
-    <style> 
-            #logo {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 200px;
-            }
-
-            table {
-            width: 80%; /* Ensure tables fill their containing element */
-            table-layout: fixed; /* Ensure uniform column widths */
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
+        
+        #container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        #logo {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 600px;
+        }
+        
         th, td {
-            width: 150px; /* Set the width of each column */
-            padding: 8px; /* Add padding for better spacing */
-            text-align: center; /* Center align text */
-            overflow: hidden; /* Hide overflow content */
-            white-space: nowrap; /* Prevent text wrapping */
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
         }
 
-       
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
 
-    </style> 
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <img id="logo" src="logo.png" alt="Logo">
+    <div id="container">
+        <img id="logo" src="logo.png" alt="Logo">
+        <h1>Chaine d'Alerte Equipe <span id="equipeNumber"></span>.</h1>
+        <button class="download-btn" onclick="exportTableToExcel()">Download as Excel</button>
+        <div id="table-container"></div>
+        <script>
+            // Function to prompt user for equipe number
+            function promptEquipeNumber() {
+                var equipeNumber = parseInt(prompt("Enter your equipe (1 to 5):"));
+                if (equipeNumber >= 1 && equipeNumber <= 5) {
+                    document.getElementById("equipeNumber").innerText = equipeNumber;
+                    promptRescuersNumber();
+                } else {
+                    alert("Invalid equipe number. Please enter a number between 1 and 5.");
+                    promptEquipeNumber();
+                }
+            }
 
-<script>
-    // Prompt user for their equipe number
-    var equipeNumber = prompt("Enter your equipe (1 to 5):");
+            // Function to prompt user for the number of rescuers
+            function promptRescuersNumber() {
+                var number = parseInt(prompt("Enter the number of rescuers (between 10 and 25):"));
+                if (number >= 10 && number <= 25) {
+                    promptRescuerNames(number);
+                } else {
+                    alert("Invalid number of rescuers. Please enter a number between 10 and 25.");
+                    promptRescuersNumber();
+                }
+            }
 
-    // Greet the user
-    document.write("<h1>Chaine d'Alerte Equipe " + equipeNumber + ".</h1>");
+            // Function to prompt user for rescuer names
+            function promptRescuerNames(number) {
+                var names = [];
+                for (var i = 1; i <= number; i++) {
+                    var name = prompt("Priority " + i + " name:");
+                    if (!name.trim()) {
+                        alert("Name cannot be empty. Please enter a name for Priority " + i + ".");
+                        i--; // Decrement i to re-prompt for the current priority
+                    } else {
+                        names.push(name);
+                        window['name' + i] = name; // Dynamically create variables like name1, name2, etc.
+                    }
+                }
+                if(number == 10){
+                    generateTable10(names);
+                }
+                else if(number == 11){
+                    generateTable11(names);
+                }
+                else if(number == 12){
+                    generateTable12(names);
+                }
+                else if(number == 13){
+                    generateTable13(names);
+                }
+                else if(number == 14){
+                    generateTable14(names);
+                }
+                else if(number == 15){
+                    generateTable15(names);
+                }
+                else if(number == 16){
+                    generateTable16(names);
+                }
+                else if(number == 17){
+                    generateTable17(names);
+                }
+                else if(number == 18){
+                    generateTable18(names);
+                }
+                else if(number == 19){
+                    generateTable19(names);
+                }
+                else if(number == 20){
+                    generateTable20(names);
+                }
+                else if(number == 21){
+                    generateTable21(names);
+                }
+                else if(number == 22){
+                    generateTable22(names);
+                }
+                else if(number == 23){
+                    generateTable23(names);
+                }
+                else if(number == 24){
+                    generateTable24(names);
+                }
+                else if(number == 25){
+                    generateTable25(names);
+                } 
+            }
 
-    // Prompt user for the number of rescuers (between 10 and 25)
-    var number = parseInt(prompt("Enter the number of rescuers (between 10 and 25):"));
+            // Function to generate table
+            function generateTable10(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[8] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[6] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[7] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+            }
 
-    // Validate the number
-    if (number >= 10 && number <= 25) {
-        // Create arrays to hold names and values for each row
-        var names = [];
-        
-        // Prompt user for names based on the number
-        for (var i = 1; i <= number; i++) {
-            var name = prompt("Priority " + i + " name:");
-            names.push(name);
-            window['name' + i] = name; // Dynamically create variables like name1, name2, etc.
-        }
+            function generateTable11(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[8] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[6] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[7] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        // Generate the table based on the number
-  
-        if (number === 10) {         //Done
-            generateTable10();       //Done
-        } else if (number === 11) {  //Done
-            generateTable11();       //Done
-        } else if (number === 12) {  //Done
-            generateTable12();       //Done
-        } else if (number === 13) {  //Done
-            generateTable13();       //Done
-        } else if (number === 14) {  //Done
-            generateTable14();       //Done
-        } else if (number === 15) {  //Done
-            generateTable15();       //Done
-        } else if (number === 16) {  //Done
-            generateTable16();       //Done
-        } else if (number === 17) {  //Done
-            generateTable17();       //Done
-        } else if (number === 18) {  //Done
-            generateTable18();       //Done
-        } else if (number === 19) {  //Done
-            generateTable19();       //Done
-        } else if (number === 20) {  //Done
-            generateTable20();       //Done
-        } else if (number === 21) {  //Done
-            generateTable21();       //Done
-        } else if (number === 22) {  //Done
-            generateTable22();       //Done
-        } else if (number === 23) {  //Done
-            generateTable23();       //Done
-        } else if (number === 24) {  //Done
-            generateTable24();       //Done
-        } else if (number === 25) {  //Done
-            generateTable25();       //Done
-        }
-        // Add more conditions for other numbers as needed
-        // Else condition for numbers greater than 12
-        else {
-            document.write("<p>No specific table defined for " + number + " rescuers.</p>");
-        }
+            function generateTable12(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[4] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[6] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[8] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        // Functions to generate specific tables for different numbers
-        function generateTable10() {
-            // This is a manually editable table for 10 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Caller</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[8] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[6] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[7] + "</td><td>" + names[0] + "</td></tr>");
-            // Add rows for the remaining names
-            document.write("</table>");
-        }
+            function generateTable13(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[4] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[9] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[3] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[12] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[7] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable11() {
-            // This is a manually editable table for 10 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Caller</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[8] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[6] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[7] + "</td><td>" + names[0] + "</td></tr>");
-            // Add rows for the remaining names
-            document.write("</table>");
-        }
+            function generateTable14(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[2] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[4] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[3] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[5] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable12() {
-            // This is a manually editable table for 10 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Caller</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[4] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[6] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[8] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>");
-            // Add rows for the remaining names
-            document.write("</table>");
-        }
+            function generateTable15(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[12] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[14] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[13] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[8] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[7] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
+    
+            function generateTable16(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[13] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[4] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[15] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable13() {
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[4] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[9] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[3] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[12] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[7] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[5] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }  // This is a manually editable table for 13 rescuers
-          
-        function generateTable14() {
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[2] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[4] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[3] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[5] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("</table>");
-        }  // This is a manually editable table for 13 rescuers
-          
+            function generateTable17(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[14] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable15() {
-            // This is a manually editable table for 13 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[12] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[14] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[13] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[8] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[7] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable18(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[10] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[6] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[17] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[12] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[15] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[14] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[11] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[7] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable16() {
-            // This is a manually editable table for 13 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[13] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[4] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[15] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[10] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable19(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[4] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[8] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[14] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[18] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[12] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable17() {
-            // This is a manually editable table for 18 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[14] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable20(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[1] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[4] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[3] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[12] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[19] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[14] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable18() {
-            // This is a manually editable table for 18 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[10] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[6] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[17] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[12] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[15] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[9] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[14] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[11] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[7] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable21(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[20] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[7] + "</td><td>" + names[9] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[12] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[11] + "</td><td>" + names[19] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[16] + "</td><td>" + names[20] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[14] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[20] + "</td><td>" + names[13] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable19() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[11] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[1] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[4] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[8] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[14] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[18] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[12] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable22(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[6] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[10] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[14] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[19] + "</td><td>" + names[20] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[7] + "</td><td>" + names[10] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[21] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[16] + "</td><td>" + names[19] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[6] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[17] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[20] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[21] + "</td><td>" + names[18] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable20() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[1] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[4] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[3] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[12] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[19] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[14] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable23(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[20] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[21] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[22] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[10] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[9] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[14] + "</td><td>" + names[20] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[13] + "</td><td>" + names[21] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[12] + "</td><td>" + names[22] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[20] + "</td><td>" + names[11] + "</td><td>" + names[19] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[21] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[22] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>";
+                    tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable21() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[20] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[8] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[7] + "</td><td>" + names[9] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[12] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[11] + "</td><td>" + names[19] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[16] + "</td><td>" + names[20] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[14] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[20] + "</td><td>" + names[13] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable24(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[23] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[21] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[11] + "</td><td>" + names[3] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[20] + "</td><td>" + names[5] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[22] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[8] + "</td><td>" + names[17] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[10] + "</td><td>" + names[19] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[11] + "</td><td>" + names[20] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[12] + "</td><td>" + names[21] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[13] + "</td><td>" + names[22] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[20] + "</td><td>" + names[4] + "</td><td>" + names[23] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[21] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[22] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[23] + "</td><td>" + names[9] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable22() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[5] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[6] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[10] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[14] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[2] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[19] + "</td><td>" + names[20] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[7] + "</td><td>" + names[10] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[21] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[16] + "</td><td>" + names[19] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[6] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[17] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[20] + "</td><td>" + names[13] + "</td><td>" + names[15] + "</td></tr>");
-            document.write("<tr><td>" + names[21] + "</td><td>" + names[18] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
+            function generateTable25(names) {
+                var tableHtml = "<table id='table-data'>";
+                tableHtml += "<tr><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Caller</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 1</th><th style='width: 200px; background-color: #f2f2f2; font-weight: bold;'>Call 2</th></tr>";
+                tableHtml += "<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[2] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[3] + "</td><td>" + names[5] + "</td><td>" + names[8] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[5] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[9] + "</td><td>" + names[19] + "</td><td>" + names[2] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[10] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[13] + "</td><td>" + names[22] + "</td><td>" + names[23] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[14] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[15] + "</td><td>" + names[24] + "</td><td>" + names[1] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[16] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[17] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[18] + "</td><td>" + names[22] + "</td><td>" + names[24] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[19] + "</td><td>" + names[23] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[20] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[21] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[22] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[23] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>";
+                tableHtml += "<tr><td>" + names[24] + "</td><td>" + names[19] + "</td><td>" + names[0] + "</td></tr>";
+                tableHtml += "</table>";
+                document.getElementById("table-container").innerHTML = tableHtml;
+                }
 
-        function generateTable23() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[17] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[18] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[20] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[21] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[22] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[10] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[9] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[14] + "</td><td>" + names[20] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[13] + "</td><td>" + names[21] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[12] + "</td><td>" + names[22] + "</td></tr>");
-            document.write("<tr><td>" + names[20] + "</td><td>" + names[11] + "</td><td>" + names[19] + "</td></tr>");
-            document.write("<tr><td>" + names[21] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[22] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
+            
+    
 
-        function generateTable24() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[4] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[7] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[8] + "</td><td>" + names[12] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[23] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[19] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[21] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[16] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[11] + "</td><td>" + names[3] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[20] + "</td><td>" + names[5] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[22] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[8] + "</td><td>" + names[17] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[10] + "</td><td>" + names[19] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[11] + "</td><td>" + names[20] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[12] + "</td><td>" + names[21] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[13] + "</td><td>" + names[22] + "</td></tr>");
-            document.write("<tr><td>" + names[20] + "</td><td>" + names[4] + "</td><td>" + names[23] + "</td></tr>");
-            document.write("<tr><td>" + names[21] + "</td><td>" + names[15] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[22] + "</td><td>" + names[16] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[23] + "</td><td>" + names[9] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("</table>");
-        }
+            // Function to export table data to Excel
+            function exportTableToExcel() {
+                var table = document.getElementById("table-data");
 
-        function generateTable25() {
-            // This is a manually editable table for 19 rescuers
-            document.write("<table border='1'>");
-            document.write("<tr><th>Priority</th><th>Call 1</th><th>Call 2</th></tr>");
-            document.write("<tr><td>" + names[0] + "</td><td>" + names[1] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[1] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[2] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[3] + "</td><td>" + names[5] + "</td><td>" + names[8] + "</td></tr>");
-            document.write("<tr><td>" + names[4] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[5] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[6] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[7] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[8] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[9] + "</td><td>" + names[19] + "</td><td>" + names[2] + "</td></tr>");
-            document.write("<tr><td>" + names[10] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>");
-            document.write("<tr><td>" + names[11] + "</td><td>" + names[6] + "</td><td>" + names[7] + "</td></tr>");
-            document.write("<tr><td>" + names[12] + "</td><td>" + names[10] + "</td><td>" + names[13] + "</td></tr>");
-            document.write("<tr><td>" + names[13] + "</td><td>" + names[22] + "</td><td>" + names[23] + "</td></tr>");
-            document.write("<tr><td>" + names[14] + "</td><td>" + names[15] + "</td><td>" + names[16] + "</td></tr>");
-            document.write("<tr><td>" + names[15] + "</td><td>" + names[24] + "</td><td>" + names[1] + "</td></tr>");
-            document.write("<tr><td>" + names[16] + "</td><td>" + names[3] + "</td><td>" + names[4] + "</td></tr>");
-            document.write("<tr><td>" + names[17] + "</td><td>" + names[20] + "</td><td>" + names[21] + "</td></tr>");
-            document.write("<tr><td>" + names[18] + "</td><td>" + names[22] + "</td><td>" + names[24] + "</td></tr>");
-            document.write("<tr><td>" + names[19] + "</td><td>" + names[23] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("<tr><td>" + names[20] + "</td><td>" + names[5] + "</td><td>" + names[6] + "</td></tr>");
-            document.write("<tr><td>" + names[21] + "</td><td>" + names[9] + "</td><td>" + names[11] + "</td></tr>");
-            document.write("<tr><td>" + names[22] + "</td><td>" + names[12] + "</td><td>" + names[14] + "</td></tr>");
-            document.write("<tr><td>" + names[23] + "</td><td>" + names[17] + "</td><td>" + names[18] + "</td></tr>");
-            document.write("<tr><td>" + names[24] + "</td><td>" + names[19] + "</td><td>" + names[0] + "</td></tr>");
-            document.write("</table>");
-        }
-        // Add more functions for other numbers as needed
+                // Clone the table element to avoid modifying the original HTML
+                var clonedTable = table.cloneNode(true);
 
-    } else {
-        // Display error message if the number is not within the specified range
-        document.write("Invalid number. Please enter a number between 10 and 25.");
-    }
-</script>
+                // Get the header row and insert a new cell after the "Caller" column
+                var headerRow = clonedTable.rows[0];
+                var callerCellIndex = -1; // Initialize the index of the "Caller" column
+                for (var i = 0; i < headerRow.cells.length; i++) {
+                    if (headerRow.cells[i].textContent === "Caller") {
+                        callerCellIndex = i;
+                        break;
+                    }
+                }
+                // Insert a new cell after the "Caller" column in the header row
+                var newHeaderCell = headerRow.insertCell(callerCellIndex + 1);
+                newHeaderCell.textContent = "ICE";
 
+                // Iterate through the rows (starting from the second row) and insert a new cell after the "Caller" column in each row
+                var rows = clonedTable.rows;
+                for (var i = 1; i < rows.length; i++) {
+                    var newRow = rows[i];
+                    var newCell = newRow.insertCell(callerCellIndex + 1);
+                    newCell.textContent = "Extra Data"; // Add content to the new cell
+                }
+
+                // Get the HTML content of the cloned table
+                var html = clonedTable.outerHTML;
+
+                // Construct the data URL for Excel export
+                var url = 'data:application/vnd.ms-excel,' + encodeURIComponent(html);
+
+                // Create a download link
+                var link = document.createElement("a");
+                link.download = "chaine d'alerte.xls";
+                link.href = url;
+
+                // Trigger the download
+                link.click();
+            }
+
+            promptEquipeNumber(); // Start the process by prompting for equipe number
+        </script>
+    </div>
 </body>
 </html>
